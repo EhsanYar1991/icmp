@@ -9,7 +9,7 @@ function setConnected(connected) {
     else {
         $("#conversation").hide();
     }
-    $("#greetings").html("");
+    $("#pings").html("");
 }
 
 function connect() {
@@ -19,7 +19,7 @@ function connect() {
         setConnected(true);
         console.log('Connected: ' + frame);
         stompClient.subscribe('/topic/pings', function (response) {
-            showGreeting(JSON.parse(response.body).content);
+            showPing(JSON.parse(response.body).content);
         });
     });
 }
@@ -33,11 +33,11 @@ function disconnect() {
 }
 
 function sendName() {
-    stompClient.send("/app/hello", {}, JSON.stringify({'name': $("#name").val()}));
+    stompClient.send("/app/icmp", {}, JSON.stringify({'name': $("#name").val()}));
 }
 
-function showGreeting(message) {
-    $("#greetings").append("<tr><td>" + message + "</td></tr>");
+function showPing(message) {
+    $("#pings").append("<tr><td>" + message + "</td></tr>");
 }
 
 $(function () {

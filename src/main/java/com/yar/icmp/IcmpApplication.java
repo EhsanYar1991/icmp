@@ -7,20 +7,24 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.data.mongodb.repository.config.EnableReactiveMongoRepositories;
 
 import java.time.LocalDateTime;
 
 @SpringBootApplication
 public class IcmpApplication implements CommandLineRunner {
 
+	public IcmpApplication(HostRepository hostRepository, PingJobService pingJobService) {
+		this.hostRepository = hostRepository;
+		this.pingJobService = pingJobService;
+	}
+
 	public static void main(String[] args) {
 		SpringApplication.run(IcmpApplication.class, args);
 	}
 
-	@Autowired
-	private HostRepository hostRepository;
-	@Autowired
-	private PingJobService pingJobService;
+	private final HostRepository hostRepository;
+	private final PingJobService pingJobService;
 
 	@Override
 	public void run(String... args) throws Exception {

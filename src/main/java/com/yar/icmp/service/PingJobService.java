@@ -20,12 +20,15 @@ public class PingJobService {
 
     private Map<String, PingJob> pingJobMap ;
 
-    @Autowired
-    private HostRepository hostRepository;
-    @Autowired
-    private SimpMessagingTemplate simpMessagingTemplate;
-    @Autowired
-    private ExecutorService executorService;
+    private final HostRepository hostRepository;
+    private final SimpMessagingTemplate simpMessagingTemplate;
+    private final ExecutorService executorService;
+
+    public PingJobService(HostRepository hostRepository, SimpMessagingTemplate simpMessagingTemplate, ExecutorService executorService) {
+        this.hostRepository = hostRepository;
+        this.simpMessagingTemplate = simpMessagingTemplate;
+        this.executorService = executorService;
+    }
 
     public void initiatePingJobs(){
         if (pingJobMap == null) pingJobMap = new ConcurrentHashMap<>();

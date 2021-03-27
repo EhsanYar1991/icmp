@@ -82,7 +82,7 @@ public class WebSocketResponseIntegrationTests {
 					}
 				});
 				try {
-					session.send("/app/hello", new RequestMessage("Spring"));
+					session.send("/app/icmp", new RequestMessage("Spring"));
 				} catch (Throwable t) {
 					failure.set(t);
 					latch.countDown();
